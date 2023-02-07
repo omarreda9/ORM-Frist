@@ -9,7 +9,7 @@ def student_list(request):
 
 
 """
-    Q with OR:
+    >>> Q with OR:
     Student.objects.filter(
         Q (name__contains='s') |
         ~Q (name__contains='3') -> don't Q 
@@ -22,9 +22,13 @@ def student_list(request):
     )
 
 
+
+
     >>> exclude()  => Not     ---> exclude
-    >>> Student.objects.exclude(name__contains='2')
+    Student.objects.exclude(name__contains='2')
     <QuerySet [<Student: s1>, <Student: s3>, <Student: s4>, <Student: s5>]>
+
+
 
 
     >>> Signs
@@ -43,19 +47,25 @@ def student_list(request):
     > Student.objects.all().only('age') 
 
 
+
     >>> raw()   -> The only way to running sql in django 
     sql = "SELECT * FROM students_student"
     Student.objects.raw(sql)
 
-    > to limit
+
+
+    >>> to limit
     Student.objects.raw(sql)[:3]
 
     -------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------
 
     >>> Inheritance
+
      - Abstract 
      - multi-table model Inheritance
-     - proxy model
+     - Polymorphish
 
     * Abstract  -> using (class meta)
     it doesn't include in actual database 
@@ -92,7 +102,7 @@ def student_list(request):
         class Meta(Student.Meta):
             ordering = ['class_number_student']
 
-
+    ---------------------------------------------------
     * Inheritance  -> multi-table model Inheritance
 
     class StudentMultiTable(models.Model):
@@ -130,6 +140,22 @@ def student_list(request):
     = Provide us sql performance data
     
     ** he provide us really valuable information
+
+    -------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------
+
+    ## Better performance ## -------> V1(v11)
+    # Setup Django debug toolbar to see performance for sql 
+    # Inheritance [ Abstract - multi-table model Inheritance - Polymorphish ]
+    # maybe best one Polymorphish
+
+    # use [ .select_related()  -- .prefetch_related() ]
+
+    -------------------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------------
+
 
 
 """
